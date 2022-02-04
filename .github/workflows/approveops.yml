@@ -1,0 +1,35 @@
+name: Approve Ops
+on:
+  issue_comment:
+    types: [created, deleted, edited]
+  issues:
+    types: [opened, edited, milestoned]
+
+jobs:
+  dump_contexts_to_log:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Dump GitHub context
+        id: github_context_step
+        run: echo '${{ toJSON(github) }}'
+        
+      - name: echo issue comment body
+        run: echo "$comment_body"
+        env:
+          comment_body: ${{ github.event.comment.body }}
+
+      - name: echo issue comment body again
+        run: echo "${{ github.event.comment.body }}"
+        
+      - name: echo user
+        run: echo "${{ github.event.comment.user.login }}"
+        
+      - name: check if the person who commented is in approver group
+        run: | 
+          echo "looking to see if ${{ github.event.comment.user.login }} is in the approver team"
+          users=$(curl -sLX GET 'https://api.github.com/orgs/joshjohanning-org/teams/approver-team/members' \
+            --header "Accept: application/vnd.github.v3+json" \
+            --header "Authorization: Bearer ${{ secrets.GHEC_ADMIN_TOKEN }}" | jq -c '.[].login')
+          
+          echo $users | grep -q ${{ github.event.comment.user.login }} && echo "Found ${{ github.event.comment.user.login }} in users" || echo "::warning title=not_approved::user is not in the approver team"
+          
