@@ -28,7 +28,6 @@ jobs:
       - id: check-approval
         name: check if there is an approve command from authorized party
         run: | 
-          set -euxo pipefail
           users=$(curl -sLX GET 'https://api.github.com/orgs/joshjohanning-org/teams/approver-team/members' \
             --header "Accept: application/vnd.github.v3+json" \
             --header "Authorization: Bearer ${{ secrets.GHEC_ADMIN_TOKEN }}" | jq -c '.[].login')
