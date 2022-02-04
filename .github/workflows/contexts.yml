@@ -1,6 +1,5 @@
 name: Context testing
 on:
-  push:
   issue_comment:
     types: [created, deleted, edited]
   issues:
