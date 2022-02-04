@@ -21,3 +21,6 @@ jobs:
         run: echo '${{ toJSON(strategy) }}'
       - name: Dump matrix context
         run: echo '${{ toJSON(matrix) }}'
+        
+      - name: echo issue body
+        run: echo "${{ github.event.comment.body }}"
