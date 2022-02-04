@@ -2,8 +2,6 @@ name: Approve Ops
 on:
   issue_comment:
     types: [created, deleted, edited]
-  issues:
-    types: [opened, edited, milestoned]
 
 jobs:
   approveops:
