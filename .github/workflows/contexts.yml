@@ -31,3 +31,6 @@ jobs:
 
       - name: echo issue comment body again
         run: echo "${{ github.event.comment.body }}"
+        
+      - name: echo user
+        run: echo "${{ github.event.comment.user.login }}"
