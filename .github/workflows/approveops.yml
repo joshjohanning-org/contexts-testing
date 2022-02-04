@@ -34,3 +34,33 @@ jobs:
           
           echo $users | grep -q ${{ github.event.comment.user.login }} && echo "Found ${{ github.event.comment.user.login }} in users" || echo "::warning title=not_approved::user is not in the approver team"
           
+      - name: check if there is an approve command from authorized party
+        run: | 
+          users=$(curl -sLX GET 'https://api.github.com/orgs/joshjohanning-org/teams/approver-team/members' \
+            --header "Accept: application/vnd.github.v3+json" \
+            --header "Authorization: Bearer ${{ secrets.GHEC_ADMIN_TOKEN }}" | jq -c '.[].login')
+
+          approveCommand="/approve"
+          comments=$(curl -sLX GET '${{ github.event.comment.issue_url }}' \
+            --header "Accept: application/vnd.github.v3+json" \
+            --header "Authorization: Bearer ${{ secrets.GHEC_ADMIN_TOKEN }}")
+
+          authorized=false
+
+          for comment in $(echo $comments | jq -r '.[] | @base64'); do
+              body=$(echo $comment | base64 --decode | jq -r '.body')
+              actor=$(echo $comment | base64 --decode | jq -r '.user.login')
+              if [[ $body == *"$approveCommand"* ]]; then
+                  echo "Approve command found..."
+                  echo $users | grep -q $actor && echo "Found $actor in users" && authorized=true || echo "Not found $actor in users"
+              else
+                  echo "Approve command not found..."
+              fi
+          done
+
+          if $authorized; then
+              echo "Authorized"
+          else
+              echo "Not authorized"
+              echo "::error title=Not Approved::There is no /approve command in the comments from an authorized party"
+          fi
