@@ -39,7 +39,7 @@ jobs:
         run: | 
           users=$(curl -sLX GET 'https://api.github.com/orgs/joshjohanning-org/teams/approver-team/members' \
           --header "Accept: application/vnd.github.v3+json" \
-          --header "Authorization: Bearer ${{ GITHUB_TOKEN }}" | jq -c '.[].login')
+          --header "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" | jq -c '.[].login')
 
           echo $users | grep -q $login && echo "Found $login in users" || echo "::warning title=not_approved::user is not in the approver team"
           
