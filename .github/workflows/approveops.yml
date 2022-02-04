@@ -52,6 +52,7 @@ jobs:
 
           if $authorized; then
               echo "Authorized"
+              echo "::set-output name=approved::true"
           else
               echo "Not authorized"
               echo "::set-output name=approved::false"
@@ -68,3 +69,14 @@ jobs:
           body: |
             Hey, @${{ github.event.comment.user.login }}!
             :cry:  No one approved your run yet! Have someone from the approver team run `/approve` and then try your command again
+
+      - if: ${{ steps.check-approval.outputs.approved == 'true' }}
+        name: Create completed comment
+        uses: peter-evans/create-or-update-comment@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          issue-number: ${{ github.event.issue.number }}
+          body: |
+            Hey, @${{ github.event.comment.user.login }}!
+            :tada:  You were able to run the migration because someone approved!! :tada:
+            
