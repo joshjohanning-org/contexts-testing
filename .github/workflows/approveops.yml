@@ -42,7 +42,7 @@ jobs:
             --header "Authorization: Bearer ${{ secrets.GHEC_ADMIN_TOKEN }}" | jq -c '.[].login')
 
           approveCommand="/approve"
-          comments=$(curl -sLX GET '${{ github.event.comment.issue_url }}' \
+          comments=$(curl -sLX GET '${{ github.event.comment.issue_url }}/comments' \
             --header "Accept: application/vnd.github.v3+json" \
             --header "Authorization: Bearer ${{ secrets.GHEC_ADMIN_TOKEN }}")
 
