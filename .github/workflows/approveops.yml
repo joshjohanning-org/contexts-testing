@@ -8,20 +8,6 @@ jobs:
     runs-on: ubuntu-latest
     if: contains(github.event.comment.body, '/run-dry-run-migration')
     steps:
-      - name: Dump GitHub context
-        id: github_context_step
-        run: echo '${{ toJSON(github) }}'
-        
-      - name: echo issue comment body
-        run: echo "$comment_body"
-        env:
-          comment_body: ${{ github.event.comment.body }}
-
-      - name: echo issue comment body again
-        run: echo "${{ github.event.comment.body }}"
-        
-      - name: echo user
-        run: echo "${{ github.event.comment.user.login }}"
         
       - id: check-approval
         name: check if there is an approve command from authorized party
