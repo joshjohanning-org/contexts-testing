@@ -25,16 +25,8 @@ jobs:
       - name: echo user
         run: echo "${{ github.event.comment.user.login }}"
         
-      - name: check if the person who commented is in approver group
-        run: | 
-          echo "looking to see if ${{ github.event.comment.user.login }} is in the approver team"
-          users=$(curl -sLX GET 'https://api.github.com/orgs/joshjohanning-org/teams/approver-team/members' \
-            --header "Accept: application/vnd.github.v3+json" \
-            --header "Authorization: Bearer ${{ secrets.GHEC_ADMIN_TOKEN }}" | jq -c '.[].login')
-          
-          echo $users | grep -q ${{ github.event.comment.user.login }} && echo "Found ${{ github.event.comment.user.login }} in users" || echo "::warning title=not_approved::user is not in the approver team"
-          
-      - name: check if there is an approve command from authorized party
+      - id: check-approval
+        name: check if there is an approve command from authorized party
         run: | 
           set -euxo pipefail
           users=$(curl -sLX GET 'https://api.github.com/orgs/joshjohanning-org/teams/approver-team/members' \
@@ -63,5 +55,17 @@ jobs:
               echo "Authorized"
           else
               echo "Not authorized"
+              echo "::set-output name=approved::false"
               echo "::error title=Not Approved::There is no /approve command in the comments from an authorized party"
           fi
+
+
+      - if: ${{ steps.check-approval.outputs.approved == 'false' }}
+        name: Create completed comment
+        uses: peter-evans/create-or-update-comment@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          issue-number: ${{ github.event.issue.number }}
+          body: |
+            Hey, @${{ github.event.comment.user.login }}!
+            :cry:  No one approved your run yet! Have someone from the approver team run `/approve` and then try your command again
