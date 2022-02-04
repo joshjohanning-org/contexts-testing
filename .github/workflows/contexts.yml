@@ -1,5 +1,8 @@
 name: Context testing
-on: push
+on:
+  push:
+  issues:
+    types: [opened, edited, milestoned]
 
 jobs:
   dump_contexts_to_log:
