@@ -8,7 +8,6 @@ jobs:
     runs-on: ubuntu-latest
     if: contains(github.event.comment.body, '/run-dry-run-migration')
     steps:
-        
       - id: check-approval
         name: check if there is an approve command from authorized party
         run: | 
