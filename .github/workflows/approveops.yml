@@ -42,12 +42,18 @@ jobs:
               echo "::error title=Not Approved::There is no /approve command in the comments from an authorized party"
           fi
 
-
+      - uses: jnwng/github-app-installation-token-action@v2
+        id: get_installation_token
+        with: 
+          appId: 170284
+          installationId: 23023339
+          privateKey: ${{ secrets.PRIVATE_KEY }}
+          
       - if: ${{ steps.check-approval.outputs.approved == 'false' }}
         name: Create completed comment
         uses: peter-evans/create-or-update-comment@v1
         with:
-          token: ${{ secrets.GHEC_ADMIN_TOKEN }}
+          token: ${{ steps.get_installation_token.outputs.token }}
           issue-number: ${{ github.event.issue.number }}
           body: |
             Hey, @${{ github.event.comment.user.login }}!
@@ -58,7 +64,7 @@ jobs:
         name: Create completed comment
         uses: peter-evans/create-or-update-comment@v1
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ steps.get_installation_token.outputs.token }}
           issue-number: ${{ github.event.issue.number }}
           body: |
             Hey, @${{ github.event.comment.user.login }}!
