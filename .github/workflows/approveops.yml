@@ -11,7 +11,7 @@ jobs:
       - id: check-approval
         name: check if there is an approve command from authorized party
         run: | 
-          users=$(curl -sLX GET 'https://api.github.com/orgs/${{ github.repository_owner }}//teams/approver-team/members' \
+          users=$(curl -sLX GET 'https://api.github.com/orgs/${{ github.repository_owner }}/teams/approver-team/members' \
             --header "Accept: application/vnd.github.v3+json" \
             --header "Authorization: Bearer ${{ secrets.GHEC_ADMIN_TOKEN }}" | jq -c '.[].login')
 
