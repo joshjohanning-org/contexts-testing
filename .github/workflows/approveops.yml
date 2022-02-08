@@ -8,12 +8,20 @@ jobs:
     runs-on: ubuntu-latest
     if: contains(github.event.comment.body, '/run-dry-run-migration')
     steps:
+
+      - uses: jnwng/github-app-installation-token-action@v2
+        id: get_installation_token
+        with: 
+          appId: 170284
+          installationId: 23023339
+          privateKey: ${{ secrets.PRIVATE_KEY }}
+          
       - id: check-approval
         name: check if there is an approve command from authorized party
         run: | 
           users=$(curl -sLX GET 'https://api.github.com/orgs/${{ github.repository_owner }}/teams/approver-team/members' \
             --header "Accept: application/vnd.github.v3+json" \
-            --header "Authorization: Bearer ${{ secrets.GHEC_ADMIN_TOKEN }}" | jq -c '.[].login')
+            --header "Authorization: Bearer ${{ steps.get_installation_token.outputs.token }}" | jq -c '.[].login')
 
           approveCommand="/approve"
           comments=$(curl -sLX GET '${{ github.event.comment.issue_url }}/comments' \
@@ -41,13 +49,6 @@ jobs:
               echo "::set-output name=approved::false"
               echo "::error title=Not Approved::There is no /approve command in the comments from an authorized party"
           fi
-
-      - uses: jnwng/github-app-installation-token-action@v2
-        id: get_installation_token
-        with: 
-          appId: 170284
-          installationId: 23023339
-          privateKey: ${{ secrets.PRIVATE_KEY }}
           
       - if: ${{ steps.check-approval.outputs.approved == 'false' }}
         name: Create completed comment
