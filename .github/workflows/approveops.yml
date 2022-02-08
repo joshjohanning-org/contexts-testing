@@ -8,7 +8,6 @@ jobs:
     runs-on: ubuntu-latest
     if: contains(github.event.comment.body, '/run-dry-run-migration')
     steps:
-
       - uses: jnwng/github-app-installation-token-action@v2
         id: get_installation_token
         with: 
