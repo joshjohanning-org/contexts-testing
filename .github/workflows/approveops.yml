@@ -7,6 +7,9 @@ jobs:
   approveops:
     runs-on: ubuntu-latest
     if: contains(github.event.comment.body, '/run-dry-run-migration')
+    outputs: 
+      approved: ${{ steps.check-approval.outputs.approved }}
+      
     steps:
       - uses: tibdex/github-app-token@v1
         id: get_installation_token
@@ -75,7 +78,7 @@ jobs:
   
   migration:
     needs: approveops
-    if: ${{ jobs.approveops.outputs.approved == 'true' }}
+    if: ${{ needs.approveops.outputs.approved == 'true' }}
     runs-on: ubuntu-latest
     steps:
       - run: echo "run migration!"
