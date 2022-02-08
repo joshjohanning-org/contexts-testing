@@ -74,7 +74,8 @@ jobs:
         run: exit 1
   
   migration:
-    runs-on: ubuntu-latest
     needs: approveops
+    if: ${{ jobs.approveops.outputs.approved == 'true' }}
+    runs-on: ubuntu-latest
     steps:
       - run: echo "run migration!"
