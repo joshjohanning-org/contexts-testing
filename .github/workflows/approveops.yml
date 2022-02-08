@@ -7,6 +7,7 @@ jobs:
   approveops:
     runs-on: ubuntu-latest
     if: contains(github.event.comment.body, '/run-dry-run-migration')
+    # optional - if we want to use the output to determine if we run the migration job or not
     outputs: 
       approved: ${{ steps.check-approval.outputs.approved }}
       
@@ -71,10 +72,11 @@ jobs:
           body: |
             Hey, @${{ github.event.comment.user.login }}!
             :tada:  You were able to run the migration because someone approved!! :tada:
-            
-      - if: ${{ steps.check-approval.outputs.approved == 'false' }}
-        name: exit if not approved
-        run: exit 1
+        
+      # optional - if we just want the action run stop right here
+      # - if: ${{ steps.check-approval.outputs.approved == 'false' }}
+      #   name: exit if not approved
+      #   run: exit 1
   
   migration:
     needs: approveops
