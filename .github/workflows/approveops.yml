@@ -69,9 +69,9 @@ jobs:
             Hey, @${{ github.event.comment.user.login }}!
             :tada:  You were able to run the migration because someone approved!! :tada:
             
-      - if: ${{ steps.check-approval.outputs.approved == 'false' }}
-        name: exit if not approved
-        run: exit 1
+      # - if: ${{ steps.check-approval.outputs.approved == 'false' }}
+      #   name: exit if not approved
+      #  run: exit 1
   
   migration:
     runs-on: ubuntu-latest
