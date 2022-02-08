@@ -80,6 +80,7 @@ jobs:
   
   migration:
     needs: approveops
+    # optional - if we want to use the output to determine if we run the migration job or not
     if: ${{ needs.approveops.outputs.approved == 'true' }}
     runs-on: ubuntu-latest
     steps:
