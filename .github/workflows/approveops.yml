@@ -19,7 +19,7 @@ jobs:
           app-id: 170284
           app-private-key: ${{ secrets.PRIVATE_KEY }}
           team-name: approver-team
-          fail-if-approval-not-found: false
+          fail-if-approval-not-found: true
 
       # - uses: tibdex/github-app-token@v1
       #   id: get_installation_token
