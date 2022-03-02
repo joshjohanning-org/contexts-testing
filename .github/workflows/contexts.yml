@@ -4,6 +4,8 @@ on:
     types: [created, deleted, edited]
   issues:
     types: [opened, edited, milestoned]
+  release:
+    types: [created, edited]
 
 jobs:
   dump_contexts_to_log:
