@@ -27,7 +27,7 @@ jobs:
         
         
       - name: echo release body
-        run: echo "${{ github.event.releases.body }}"
+        run: echo "${{ github.event.release.body }}"
         
       - name: echo issue comment body
         run: echo "$comment_body"
