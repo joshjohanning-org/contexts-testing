@@ -26,7 +26,7 @@ jobs:
         run: echo '${{ toJSON(matrix) }}'
         
         
-      - name: echo issue comment body again
+      - name: echo release body
         run: echo "${{ github.event.releases.body }}"
         
       - name: echo issue comment body
