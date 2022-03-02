@@ -25,6 +25,10 @@ jobs:
       - name: Dump matrix context
         run: echo '${{ toJSON(matrix) }}'
         
+        
+      - name: echo issue comment body again
+        run: echo "${{ github.event.releases.body }}"
+        
       - name: echo issue comment body
         run: echo "$comment_body"
         env:
