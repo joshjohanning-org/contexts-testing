@@ -8,9 +8,6 @@ on:
     types: [created, edited]
   push: 
 
-permissions:
-  deployments: read
-
 jobs:
   dump_contexts_to_log:
     runs-on: ubuntu-latest
@@ -55,7 +52,7 @@ jobs:
           
   environment-job:
     runs-on: ubuntu-latest
-    environment: qa
+    environment: dev
     steps:
       - name: Dump GitHub context
         id: github_context_step
