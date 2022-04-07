@@ -49,3 +49,21 @@ jobs:
           
           echo $users | grep -q ${{ github.event.comment.user.login }} && echo "Found ${{ github.event.comment.user.login }} in users" || echo "::warning title=not_approved::user is not in the approver team"
           
+  environment-job:
+    runs-on: ubuntu-latest
+    environment: dev
+    steps:
+      - name: Dump GitHub context
+        id: github_context_step
+        run: echo '${{ toJSON(github) }}'
+      - name: Dump job context
+        run: echo '${{ toJSON(job) }}'
+      - name: Dump steps context
+        run: echo '${{ toJSON(steps) }}'
+      - name: Dump runner context
+        run: echo '${{ toJSON(runner) }}'
+      - name: Dump strategy context
+        run: echo '${{ toJSON(strategy) }}'
+      - name: Dump matrix context
+        run: echo '${{ toJSON(matrix) }}'
+    
