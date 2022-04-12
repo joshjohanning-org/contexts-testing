@@ -7,6 +7,7 @@ on:
   release:
     types: [created, edited]
   push: 
+  pull_request: 
 
 jobs:
   dump_contexts_to_log:
