@@ -31,6 +31,8 @@ jobs:
       - name: Dump matrix context
         run: echo '${{ toJSON(matrix) }}'
         
+      - name: issue author
+        run: echo "${{ github.event.issue.user.login }}"
         
       - name: echo release body
         run: echo "${{ github.event.release.body }}"
