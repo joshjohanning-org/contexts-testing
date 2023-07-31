@@ -11,6 +11,7 @@ on:
 
 jobs:
   dump_contexts_to_log:
+    if: startsWith(github.ref, 'refs/tags/my_test_')
     runs-on: ubuntu-latest
     steps:
       # - name: Dump GitHub context
