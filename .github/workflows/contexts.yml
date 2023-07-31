@@ -5,13 +5,12 @@ on:
   issues:
     types: [opened, edited, milestoned]
   release:
-    types: [published]
+    types: [created, edited]
   push: 
   pull_request: 
 
 jobs:
   dump_contexts_to_log:
-    if: startsWith(github.ref, 'refs/tags/my_test_')
     runs-on: ubuntu-latest
     steps:
       # - name: Dump GitHub context
@@ -62,6 +61,7 @@ jobs:
   environment-job:
     runs-on: ubuntu-latest
     environment: dev
+    if: false
     steps:
       - name: Dump GitHub context
         id: github_context_step
