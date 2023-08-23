@@ -48,6 +48,8 @@ jobs:
         
       - name: echo user
         run: echo "${{ github.event.comment.user.login }}"
+
+      - run: sleep 20
         
       - name: check if approved
         if: false
