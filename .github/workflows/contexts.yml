@@ -18,25 +18,25 @@ on:
         description: 'Test scenario tags'  
 
 jobs:
-  dump_contexts_to_log:
+  write_contexts_to_log:
     runs-on: ubuntu-latest
     steps:
-      # - name: Dump GitHub context
+      # - name: Write GitHub context to log
       #   id: github_context_step
       #   run: echo '${{ toJSON(github) }}'
-      - name: Dump GitHub context
+      - name: Write GitHub context to log
         env:
           GITHUB_CONTEXT: ${{ toJSON(github) }}
         run: echo "$GITHUB_CONTEXT"
-      - name: Dump job context
+      - name: Write job context to log
         run: echo '${{ toJSON(job) }}'
-      - name: Dump steps context
+      - name: Write steps context to log
         run: echo '${{ toJSON(steps) }}'
-      - name: Dump runner context
+      - name: Write runner context to log
         run: echo '${{ toJSON(runner) }}'
-      - name: Dump strategy context
+      - name: Write strategy context to log
         run: echo '${{ toJSON(strategy) }}'
-      - name: Dump matrix context
+      - name: Write matrix context to log
         run: echo '${{ toJSON(matrix) }}'
         
       - name: issue author
@@ -71,17 +71,17 @@ jobs:
     environment: dev
     if: false
     steps:
-      - name: Dump GitHub context
+      - name: Write GitHub context to log
         id: github_context_step
         run: echo '${{ toJSON(github) }}'
-      - name: Dump job context
+      - name: Write job context to log
         run: echo '${{ toJSON(job) }}'
-      - name: Dump steps context
+      - name: Write steps context to log
         run: echo '${{ toJSON(steps) }}'
-      - name: Dump runner context
+      - name: Write runner context to log
         run: echo '${{ toJSON(runner) }}'
-      - name: Dump strategy context
+      - name: Write strategy context to log
         run: echo '${{ toJSON(strategy) }}'
-      - name: Dump matrix context
+      - name: Write matrix context to log
         run: echo '${{ toJSON(matrix) }}'
     
