@@ -13,7 +13,7 @@ jobs:
       
     steps:
       - name: ApproveOps - ApproveOps in IssueOps
-        uses: joshjohanning/ApproveOps@v1
+        uses: joshjohanning/ApproveOps@v2
         id: check-approval
         with:
           app-id: 170284
