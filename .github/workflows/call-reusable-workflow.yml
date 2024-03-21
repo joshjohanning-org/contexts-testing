@@ -12,6 +12,6 @@ on:
 
 jobs:
   build:
-    uses: joshjohanning-org/contexts-testing/.github/workflows/contexts.yml@main
+    uses: joshjohanning-org/contexts-reusable-workflows-test/.github/workflows/contexts.yml@main
     secrets: inherit
     
