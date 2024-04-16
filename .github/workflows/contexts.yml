@@ -23,7 +23,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: print debug y/n
-        run: echo $ACTIONS_RUNNER_DEBUG
+        run: echo $ACTIONS_STEP_DEBUG
       # - name: Write GitHub context to log
       #   id: github_context_step
       #   run: echo '${{ toJSON(github) }}'
