@@ -22,6 +22,8 @@ jobs:
   write_contexts_to_log:
     runs-on: ubuntu-latest
     steps:
+      - name: print debug y/n
+        run: echo $ACTIONS_RUNNER_DEBUG
       # - name: Write GitHub context to log
       #   id: github_context_step
       #   run: echo '${{ toJSON(github) }}'
