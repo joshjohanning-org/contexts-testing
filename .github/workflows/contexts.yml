@@ -24,8 +24,7 @@ jobs:
     steps:
       - name: print debug y/n
         run: | 
-          echo $ACTIONS_STEP_DEBUG
-          echo $ACTIONS_RUNNER_DEBUG
+          echo $RUNNER_DEBUG
           printenv
       # - name: Write GitHub context to log
       #   id: github_context_step
