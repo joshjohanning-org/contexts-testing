@@ -26,6 +26,8 @@ jobs:
         run: | 
           echo $RUNNER_DEBUG
           printenv
+      - name: print cache
+        run: dir $ACTIONS_RUNNER_ACTION_ARCHIVE_CACHE
       # - name: Write GitHub context to log
       #   id: github_context_step
       #   run: echo '${{ toJSON(github) }}'
