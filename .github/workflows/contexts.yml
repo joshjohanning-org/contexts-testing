@@ -28,6 +28,7 @@ jobs:
           printenv
       - name: print cache
         run: Get-ChildItem -Path $env:ACTIONS_RUNNER_ACTION_ARCHIVE_CACHE -Recurse
+        shell: pwsh
       - uses: actions/setup-node@v4
         with:
           node-version: 20
