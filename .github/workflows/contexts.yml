@@ -20,7 +20,7 @@ on:
 
 jobs:
   write_contexts_to_log:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     steps:
       - name: print debug y/n
         run: | 
