@@ -18,6 +18,10 @@ on:
       tags:
         description: 'Test scenario tags'  
 
+env:
+  test-var: 1
+
+
 jobs:
   write_contexts_to_log:
     runs-on: ubuntu-latest
@@ -40,16 +44,38 @@ jobs:
           GITHUB_CONTEXT: ${{ toJSON(github) }}
         run: echo "$GITHUB_CONTEXT"
       - name: Write job context to log
-        run: echo '${{ toJSON(job) }}'
+        env:
+          JOB_CONTEXT: ${{ toJSON(job) }}
+        run: echo "$JOB_CONTEXT"
+      - name: Write jobs context to log (reusable workflows)
+        env:
+          JOB_CONTEXT: ${{ toJSON(jobs) }}
+        run: echo "$JOBS_CONTEXT"
       - name: Write steps context to log
-        run: echo '${{ toJSON(steps) }}'
+        env:
+          STEPS_CONTEXT: ${{ toJSON(steps) }}
+        run: echo "$STEPS_CONTEXT"
       - name: Write runner context to log
-        run: echo '${{ toJSON(runner) }}'
+        env:
+          RUNNER_CONTEXT: ${{ toJSON(runner) }}
+        run: echo "$RUNNER_CONTEXT"
       - name: Write strategy context to log
-        run: echo '${{ toJSON(strategy) }}'
+        env:
+          STRATEGY_CONTEXT: ${{ toJSON(strategy) }}
+        run: echo "$STRATEGY_CONTEXT"
       - name: Write matrix context to log
-        run: echo '${{ toJSON(matrix) }}'
-        
+        env:
+          MATRIX_CONTEXT: ${{ toJSON(matrix) }}
+        run: echo "$MATRIX_CONTEXT"
+      - name: Write env context to log
+        env:
+          ENV_CONTEXT: ${{ toJSON(env) }}
+        run: echo "$ENV_CONTEXT"
+      - name: Write secrets context to log
+        env:
+          SECRETS_CONTEXT: ${{ toJSON(secrets) }}
+        run: echo "$SECRETS_CONTEXT"
+
       - name: issue author
         run: echo "${{ github.event.issue.user.login }}"
         
