@@ -19,7 +19,7 @@ on:
         description: 'Test scenario tags'  
 
 env:
-  test-var: 1
+  my-var: 1
 
 
 jobs:
