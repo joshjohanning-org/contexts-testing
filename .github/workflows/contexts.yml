@@ -109,7 +109,7 @@ jobs:
 
       - name: print inputs
         run: |
-          echo ${{ tojson(github.event.inputs) }}
+          echo "${{ fromJson(github.event.inputs) }}"
 
   environment-job:
     runs-on: ubuntu-latest
