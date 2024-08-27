@@ -106,7 +106,11 @@ jobs:
             --header "Authorization: Bearer ${{ secrets.GHEC_ADMIN_TOKEN }}" | jq -c '.[].login')
           
           echo $users | grep -q ${{ github.event.comment.user.login }} && echo "Found ${{ github.event.comment.user.login }} in users" || echo "::warning title=not_approved::user is not in the approver team"
-          
+
+      - name: print inputs
+        run: |
+          echo ${{ tojson(github.event.inputs) }}
+
   environment-job:
     runs-on: ubuntu-latest
     environment: dev
