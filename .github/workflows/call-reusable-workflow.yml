@@ -14,4 +14,8 @@ jobs:
   build:
     uses: joshjohanning-org/contexts-reusable-workflows-test/.github/workflows/contexts.yml@main
     secrets: inherit
+    inputs:
+      color: green
+      tags: value1
+      logLevel: debug
     
