@@ -17,6 +17,10 @@ on:
         default: 'warning'
       tags:
         description: 'Test scenario tags'  
+        default: 'test'
+      color:
+        description: 'color'
+        default: 'blue'
 
 env:
   my-var: 1
