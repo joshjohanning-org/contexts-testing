@@ -28,7 +28,7 @@ env:
 
 jobs:
   write_contexts_to_log:
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, macos]
     steps:
       - name: print debug y/n
         run: | 
