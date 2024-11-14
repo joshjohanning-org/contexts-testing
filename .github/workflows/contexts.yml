@@ -3,7 +3,7 @@ on:
   issue_comment:
     types: [created, deleted, edited]
   issues:
-    types: [opened, edited, milestoned]
+    types: [opened, edited, milestoned, assigned]
   release:
     types: [created, edited]
   push: 
