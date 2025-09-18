@@ -39,7 +39,7 @@ jobs:
       - name: print cache
         run: Get-ChildItem -Path $env:ACTIONS_RUNNER_ACTION_ARCHIVE_CACHE -Recurse
         shell: pwsh
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v5
         with:
           node-version: 20
       # - name: Write GitHub context to log
