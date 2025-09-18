@@ -103,3 +103,45 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: echo "run migration!"
+
+
+########### old bash using gh api in approveops initially - test.sh ###########
+
+# # users=$(gh api --paginate '/orgs/joshjohanning-org/teams/approver-team/members' | jq -c '.[].login')
+
+# users=$(gh api --paginate '/orgs/joshjohanning-org/teams/approver-team/members' --jq '.[].login')
+# if [ $? -ne 0 ]; then
+#     echo "Error: Unable to fetch users"
+#     exit 1
+# fi
+
+# echo $users
+# exit 0
+
+# approveCommand="/approve"
+# authorized=false
+# comments=$(gh api --paginate 'https://api.github.com/repos/joshjohanning-org/test-approveops/issues/2/comments')
+# for comment in $(echo $comments | jq -r '.[] | @base64'); do
+#     body=$(echo $comment | base64 --decode | jq -r '.body' | tr -d ' ' | tr -d '\r\n')
+#     actor=$(echo $comment | base64 --decode | jq -r '.user.login')
+#     id=$(echo $comment | base64 --decode | jq -r '.id')
+#     if [[ $body == "$approveCommand" ]]; then
+#         echo "Approval command found in comment id $id ..."
+#         echo $users | grep -q $actor && echo "Found $actor in team: approver-team" && authorized=true || echo "Not found $actor in team: approver-team"
+#         break
+#     else
+#         echo "Approval command not found in comment id $id ..."
+#     fi
+# done
+# if $authorized; then
+#     echo "Approval authorized by $actor"
+#     echo "approved=true" >> $GITHUB_OUTPUT
+# else
+#     echo "Approval not found or not authorized"
+#     echo "approved=false" >> $GITHUB_OUTPUT
+#     # if !(${{ inputs.fail-if-approval-not-found }}); then
+#     #     echo "::notice title=Not Approved::There is no /approve command in the comments from someone in the joshjohanning-org/approver-team team"
+#     # fi
+# fi
+
+##############################################################################################################
