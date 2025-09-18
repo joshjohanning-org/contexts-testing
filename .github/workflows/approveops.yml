@@ -12,14 +12,21 @@ jobs:
       approved: ${{ steps.check-approval.outputs.approved }}
       
     steps:
-      - name: ApproveOps - ApproveOps in IssueOps
-        uses: joshjohanning/ApproveOps@v2
-        id: check-approval
-        with:
-          app-id: 170284
-          app-private-key: ${{ secrets.PRIVATE_KEY }}
-          team-name: approver-team
-          fail-if-approval-not-found: false
+    - uses: actions/create-github-app-token@v1
+      id: app-token
+      with:
+        app-id: 170284
+        private-key: ${{ secrets.PRIVATE_KEY }}
+
+    - name: ApproveOps - Approvals in IssueOps
+      uses: joshjohanning/approveops@v2
+      id: check-approval
+      with:
+        token: ${{ steps.app-token.outputs.token }}
+        approve-command: '/approve'
+        team-name: 'approver-team'
+        fail-if-approval-not-found: false
+        # post-successful-approval-comment: false
 
       # - uses: tibdex/github-app-token@v1
       #   id: get_installation_token
