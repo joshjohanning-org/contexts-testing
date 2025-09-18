@@ -27,7 +27,8 @@ jobs:
         token: ${{ steps.app-token.outputs.token }}
         approve-command: '/approve'
         team-name: 'approver-team'
-        fail-if-approval-not-found: false
+        # fail-if-approval-not-found: false
+        fail-if-approval-not-found: true
         # post-successful-approval-comment: false
 
       # - uses: tibdex/github-app-token@v1
