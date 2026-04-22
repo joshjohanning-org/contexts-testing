@@ -19,7 +19,7 @@ jobs:
       id: app-token
       with:
         client-id: 170284
-        private-key: ${{ secrets.PRIVATE_KEY }}
+        private-key: ${{ secrets.APP_PRIVATE_KEY }}
 
     - name: ApproveOps - Approvals in IssueOps
       uses: joshjohanning/approveops@v3
@@ -35,7 +35,7 @@ jobs:
       #   id: get_installation_token
       #   with:
       #     app_id: 170284
-      #     private_key: ${{ secrets.PRIVATE_KEY }}
+      #     private_key: ${{ secrets.APP_PRIVATE_KEY }}
           
       # - id: check-approval
       #   name: check if there is an approve command from authorized party
